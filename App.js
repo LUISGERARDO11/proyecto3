@@ -14,7 +14,7 @@ export const Login=()=>{
   return(
     <View>
       <Image 
-        source={require('./assets/btnC.png')}
+        source={require('./assets/Imagen1.png')}
         style={styles.img} 
       />
       <Text style={styles.texto}>Email o nombre de usuario</Text>
