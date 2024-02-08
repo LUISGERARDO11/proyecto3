@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, Pressable, StyleSheet, Text, TextInput, View }from 'react-native';
+import { Calculadora } from './Componentes/Calculadora';
 
 export default function App() {
   return (
     <View style={styles.container}>
-    <Login/>
+    <Calculadora/>
     <StatusBar style="auto" />
   </View>
   );
@@ -98,11 +99,11 @@ export const Cuerpo=()=>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#141718', // Cambia el color de fondo principal
-    alignItems: 'stretch',
-    marginTop:40,
+    //backgroundColor: '#141718', // Cambia el color de fondo principal
+    //alignItems: 'stretch',
+    marginTop:10,
     paddingTop:30,
-    justifyContent: 'flex-start',
+    //justifyContent: 'flex-start',
   },
   encabezado: {
     flex: 2,
