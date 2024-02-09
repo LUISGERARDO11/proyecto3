@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Button, Pressable, StyleSheet, Text, Alert, TextInput, View } from 'react-native';
+import { View } from 'react-native';
+import { BotonNum,Boton,Caja } from "./Atomicos";
+import { estilos } from './Estilos';
 
 export const Calculadora = () => {
     const [calculadora, setcalculadora] = useState("0");
@@ -87,7 +89,11 @@ export const Calculadora = () => {
 
     return (
         <View style={estilos.container}>
-            <Text style={estilos.texto}>{calculadora}</Text>
+            <View>
+                <Caja
+                    valor={calculadora}
+                />
+            </View>
             <View style={estilos.contenedorBotones}>
                 <Boton
                     texto={'C'}
@@ -171,76 +177,3 @@ export const Calculadora = () => {
     );
 };
 
-export const BotonNum = ({ texto, estiloTexto, accion }) => {
-    return (
-        <Pressable style={({ pressed }) => [{
-        }, estilos.botonNum]}
-
-            onPress={accion}
-        >
-            <Text style={StyleSheet.compose(estilos.TextoB, { fontWeight: estiloTexto, })}>{texto}</Text>
-        </Pressable>
-    )
-}
-export const Boton = ({ texto, estiloTexto, accion }) => {
-    return (
-        <Pressable style={({ pressed }) => [{
-        }, estilos.boton]}
-
-            onPress={accion}
-        >
-            <Text style={StyleSheet.compose(estilos.TextoB, { fontWeight: estiloTexto, })}>{texto}</Text>
-        </Pressable>
-    )
-}
-
-const estilos = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f7f7f7',
-    },
-    texto: {
-        flex: 2,
-        color: '#141718',
-        fontSize: 60,
-        textAlign: 'right',
-        backgroundColor: '#f7f7f7',
-        textAlignVertical: 'center',
-    },
-    contenedorBotones: {
-        flex: 5,
-        paddingTop: 10,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
-    TextoB: {
-        color: '#141718',
-        fontSize: 34
-    },
-    botonNum: {
-        width: 80, // Tamaño del botón
-        height: 80, // Tamaño del botón
-        borderRadius: 50, // Hace el botón completamente redondo (la mitad del ancho o alto)
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ffffff',
-        borderWidth: 1,
-        borderColor: '#ffffff',
-        margin: '1%',
-        marginLeft: 5,
-        marginBottom: 15,
-    },
-    boton: {
-        width: 80, // Tamaño del botón
-        height: 80, // Tamaño del botón
-        borderRadius: 50, // Hace el botón completamente redondo (la mitad del ancho o alto)
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#adacac',
-        borderWidth: 1,
-        borderColor: '#adacac',
-        margin: '1%',
-        marginLeft: 5,
-        marginBottom: 15,
-    },
-});
