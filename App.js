@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, Pressable, StyleSheet, Text, TextInput, View }from 'react-native';
 import { Calculadora } from './Componentes/Calculadora';
+import Productos2 from './Componentes/Productos2';
+import PersonajesDisney from './Componentes/PersonajesDisney';
 
 export default function App() {
   return (
     <View style={styles.container}>
-    <Calculadora/>
+    <PersonajesDisney/>
     <StatusBar style="auto" />
   </View>
   );

@@ -4,6 +4,7 @@ export const estilos = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f7f7f7',
+        
     },
     contenedorBotones: {
         flex: 2,
@@ -53,5 +54,35 @@ export const estilos = StyleSheet.create({
         justifyContent:'center',
         padding:10,
         backgroundColor: '#f7f7f7',
+    },
+    titulo:{
+        fontSize:25,
+        padding:7,
+        fontWeight: 'bold',
+    },
+    cardItem:{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        borderWidth: 1,
+        borderColor: '#adacac',
+        borderRadius: 10,
+        marginBottom:15,
+        
+    },
+    imgItem:{
+        margin:10,   
+    },
+    infoItem:{
+        flex: 2,
+        margin:7,
+        fontSize:25,
+    },
+    textNameItem:{
+        fontWeight: 'bold',
+        fontSize:20,
+    },
+    textInfoItem:{
+        fontSize:16,
     }
+
 });
