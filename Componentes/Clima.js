@@ -34,6 +34,18 @@ const Clima = () => {
             </View>
         )
     }
+    const CardHour = ({ hora, iko, temp }) => {
+        // Dividir la cadena de hora para extraer solo la hora
+        const horaCompleta = hora.split(" ")[1];
+        return (
+            <View style={estilos.cardItemHour}>
+                <Text style={estilos.dateItem}>{horaCompleta}</Text>
+                <Image style={estilos.imgItemCard} source={{ uri: 'https:' + iko }} />
+                <Text style={estilos.tempItem}>{temp}°</Text>
+            </View>
+        );
+    };
+    
     const LScreen=()=>{
         return(
             <View > 
@@ -44,6 +56,18 @@ const Clima = () => {
                     {data.forecast.forecastday[0].day.maxtemp_c}°C {' '}
                     / {data.forecast.forecastday[0].day.mintemp_c}°C
                 </Text>
+                
+                <FlatList
+                style={estilos.lista}
+                data={data.forecast.forecastday[0].hour}
+                renderItem={({item})=>
+                <CardHour 
+                hora={item.time}
+                iko={item.condition.icon}
+                temp={item.temp_c}
+                />}
+                horizontal
+                />
 
                 <FlatList
                 style={estilos.lista}
@@ -54,6 +78,9 @@ const Clima = () => {
                 min={item.day.mintemp_c}
                 iko={item.day.condition.icon}/>}
                 />
+
+                
+                
             </View>
         )
     }

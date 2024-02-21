@@ -106,6 +106,7 @@ export const estilos = StyleSheet.create({
         fontSize:100,
         textAlign:'center',
         paddingTop:30,
+        marginLeft:35,
     },
     condicion:{
         color:'#fff',
@@ -126,6 +127,10 @@ export const estilos = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop:10,
     },
+    cardItemHour:{
+        flexDirection: 'column',
+        marginTop:10,
+    },
     dateItem:{
         
         color:'#fff',
@@ -140,6 +145,7 @@ export const estilos = StyleSheet.create({
         fontSize:17,
         marginVertical: 12, // Espacio vertical entre cada elemento de fecha
         marginRight:10,
+        marginLeft:10,
     },
     imgItemCard:{
         height: 50, 
