@@ -3,11 +3,12 @@ import { Image, Pressable, StyleSheet, Text, TextInput, View }from 'react-native
 import { Calculadora } from './Componentes/Calculadora';
 import Productos2 from './Componentes/Productos2';
 import PersonajesDisney from './Componentes/PersonajesDisney';
+import Clima from './Componentes/Clima';
 
 export default function App() {
   return (
     <View style={styles.container}>
-    <PersonajesDisney/>
+    <Clima/>
     <StatusBar style="auto" />
   </View>
   );
