@@ -1,10 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const {width, height}= Dimensions.get('window')
 
 export const estilos = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#101624',
-        color:'#fff',
+        backgroundColor: '#fff',
+
+    },
+    container2: {
+        flex: 1,
     },
     //ESTILOS DEL COMPONENTE CALCULADORA
 
@@ -152,6 +156,194 @@ export const estilos = StyleSheet.create({
         width: 50 
     }
 
+
+
+    //ESTILOS PARA EL COMPONENTE CATALOGO DE LA APP DATA ATHLETICS
+
+    ,item:{
+        width:width/2-24,
+        marginLeft:16,
+        marginBottom:16,
+        backgroundColor: '#fff',
+        
+    },
+    imageContainer:{
+        height:140,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#f0c31f',
+        borderRadius:14,
+    },
+    imagen:{
+        height:130,
+        width:130,
+        resizeMode:'center',
+    },
+    textContainer:{
+        marginVertical:4,
+            
+    },
+    text:{
+        fontWeight:'bold',
+        fontSize:15,
+    },
+
+
+
+
+     //ESTILOS PARA EL COMPONENTE DE DETALLES DE PRODUCTO DE LA APP DATA ATHLETICS
+    topContainer:{
+        height:height/3,
+        padding:16,
+        justifyContent:'space-between',
+    },
+    bottomContainer:{
+        padding:16,
+        backgroundColor:'#fff',
+        borderTopRightRadius:30,
+        borderTopLeftRadius:30,
+        paddingTop:100,
+    },
+    bigText:{
+        fontSize:28,
+        fontWeight:'bold',
+        color:'#fff',
+    },
+    smallText:{
+        color:'#fff',
+    },
+    imagenDetail:{
+        //width:180,
+        //height:240,
+        width:width/1.9,
+        height:width/1.4,
+    },
+    imgContainer:{
+        position:'absolute',
+        zIndex:999,
+        top:-150,
+        alignSelf:'flex-end',
+        paddingRight:5,
+    },
+    variants:{
+        flexDirection:'row',
+        marginVertical:20,
+        justifyContent:'space-between',
+    },
+    descriptionContainer:{
+        marginVertical:10,
+    },
+    quantity:{
+        flexDirection:'row',
+        marginVertical:20,
+        alignItems:'center',
+        marginRight:10,
+        paddingRight:20,
+    },
+    qtBtn:{
+        borderWidth:1,
+        borderRadius:8,
+        color:'#ccc',
+        width:34,
+        height:34,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    quantityText:{
+        fontSize:18,
+        fontWeight:'bold',
+        marginHorizontal:10,
+    },
+    btn:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        height:45,
+        borderRadius:10,
+    },
+    btnText:{
+        fontWeight:'bold',
+        fontSize:18,
+        color:'#fff',
+    },
+
+
+    //ESTILOS PARA EL COMPONENTE LOGIN PARA LA APLICACION DATA ATHLETICS
+    topContainerLogin:{
+        height:height/5,
+        padding:16,
+        justifyContent:'space-between',
+    },
+    bottomContainerLogin:{
+        padding:16,
+        backgroundColor:'#fff',
+        borderTopRightRadius:30,
+        borderTopLeftRadius:30,
+        paddingTop:30,
+        display:'flex',
+        alignContent:'center',
+        alignItems:'center',
+    },
+    bigTextTitle:{
+        fontSize:40,
+        fontWeight:'bold',
+        textAlign:'center'
+    },
+    bigTextSubTitle:{
+        fontSize:24,
+        paddingTop:10,
+        textAlign:'center',
+        paddingBottom:15,
+        fontWeight:'bold',
+    },
+    textForget:{
+        fontSize:17,
+        fontWeight:'bold',
+        textAlign:'center',
+        color:'#f0c31f',
+    },
+    inputContainer:{
+        paddingTop:10,
+        height:90,
+        width:300,
+        paddingLeft:10,
+    },
+    label:{
+        fontSize:20,
+        fontWeight:'bold',
+    },
+    input:{
+        fontSize:20,
+        borderRadius: 10,
+        borderColor: 'gray',
+        borderWidth: 1,
+        height:40,
+        padding:10,
+    },
+    errorMessage:{
+        fontSize:14,
+        fontWeight:'bold',
+        color:'red',
+    },
+    loginButton:{
+        fontSize:22,
+        width:250,
+        fontWeight:'bold',
+        borderRadius: 10,
+        borderColor: '#f0c31f',
+        borderWidth: 1,
+        height:50,
+        padding:12,
+        paddingBottom:15,
+        textAlign:'center',
+        backgroundColor: '#f0c31f',
+        color:'#fff',
+        marginTop:15,
+    },
+    createAccountText:{
+        marginTop:25,
+        fontSize:18,
+    },    
 });
 
 export const colores={

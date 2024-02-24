@@ -4,17 +4,20 @@ import { Calculadora } from './Componentes/Calculadora';
 import Productos2 from './Componentes/Productos2';
 import PersonajesDisney from './Componentes/PersonajesDisney';
 import Clima from './Componentes/Clima';
+import Catalogo from './Componentes/Catalogo';
+import ProductDetail from './Componentes/ProductDetail'
+import Login from './Componentes/Login';
 
 export default function App() {
   return (
     <View style={styles.container}>
-    <Clima/>
+    <Login/>
     <StatusBar style="auto" />
   </View>
   );
 }
 
-export const Login=()=>{
+export const Login2=()=>{
   return(
     <View>
       <Image 
