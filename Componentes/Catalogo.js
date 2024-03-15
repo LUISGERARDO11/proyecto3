@@ -1,8 +1,11 @@
 import { Text, View, Image, ActivityIndicator, FlatList, Alert, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { estilos } from './Estilos'
+import { useNavigation } from '@react-navigation/native'
+
 
 const Catalogo = () => {
+    const nav=useNavigation()
     const [data, setData] = useState(null);
     const [load, setLoad] = useState(false);
 
@@ -36,7 +39,7 @@ const Catalogo = () => {
                         title={item.title}
                         price={item.price}
                         image={item.image}
-                        
+                        id={item.id}
                         />}
                     contentContainerStyle={{ paddingBottom: 110 }}
                 />
@@ -45,12 +48,12 @@ const Catalogo = () => {
         );
     };
 
-    const Card = ({ title, price, image, navigation }) => {
+    const Card = ({ title, price, image, id }) => {
         return (
             <View style={estilos.item}>
                 <TouchableOpacity 
                 onPress={()=>{
-
+                    nav.navigate('ProductDetail',{id:id})
                 }}
                 style={estilos.imageContainer}> 
 

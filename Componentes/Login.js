@@ -1,16 +1,19 @@
-import { View, Text,TextInput, Image, Alert, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { estilos } from './Estilos'
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, Alert, TextInput } from 'react-native';
+import { estilos } from './Estilos';
+import { useNavigation } from '@react-navigation/native';
+import InputForm from './InputForm'; 
+import Icon from 'react-native-vector-icons/FontAwesome'; // Importa el ícono de FontAwesome
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // Estado para manejar si se debe mostrar la contraseña
     const [formValid, setFormValid] = useState(false);
+    const nav = useNavigation();
 
     useEffect(() => {
-        // Verificar si ambos campos están llenos
         if (email.trim() !== '' && password.trim() !== '') {
             setFormValid(true);
         } else {
@@ -18,78 +21,85 @@ const Login = () => {
         }
     }, [email, password]);
 
-    const handleLogin = () => {
-        // Aquí puedes manejar la lógica para iniciar sesión
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
-
-    const validateEmail = () => {
-        if (email.trim() === '') {
-            setEmailError('Por favor, complete este campo');
-        } else {
-            setEmailError('');
-        }
-    };
-
-    const validatePassword = () => {
+    const handleLogin = async () => {
+        // Validación para verificar si el campo de contraseña está vacío
         if (password.trim() === '') {
-            setPasswordError('Por favor, complete este campo');
-        } else {
-            setPasswordError('');
+            Alert.alert('Error', 'Por favor, completa el campo de contraseña.');
+            return; // Sale de la función si la contraseña está vacía
+        }
+
+        try {
+            const response = await fetch('https://apismartsweepers.vercel.app/api/usuarios/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    correo: email,
+                    contrasenia: password
+                })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                // Inicio de sesión exitoso, puedes hacer lo que sea necesario, por ejemplo, navegar a la pantalla de inicio
+                nav.navigate('Home');
+            } else {
+                // Inicio de sesión fallido, muestra un mensaje de error
+                Alert.alert('Error', 'Correo electrónico o contraseña incorrectos');
+                console.error('Inicio de sesión fallido:', data.message);
+            }
+        } catch (error) {
+            // Error de red, muestra un mensaje de error
+            Alert.alert('Error', 'Hubo un problema de conexión. Por favor, inténtalo nuevamente más tarde.');
+            console.error('Error al iniciar sesión:', error);
         }
     };
+
 
     return (
-        <View style={{ backgroundColor: '#f0c31f' }}>
+        <View style={{ backgroundColor: '#043464' }}>
             <View>
-                <View style={estilos.topContainerLogin}>
-                
-                </View>
+                <View style={estilos.topContainerLogin}></View>
                 <View style={estilos.bottomContainerLogin}>
-                <Text style={estilos.bigTextTitle}>Bienvenido de nuevo</Text>
+                    <Text style={estilos.bigTextTitle}>Bienvenido de nuevo</Text>
                     <Text style={estilos.bigTextSubTitle}>Inicia sesión en tu cuenta</Text>
-                    <View style={estilos.inputContainer}>
-
-                        <Text style={estilos.label}>Correo electrónico</Text>
-                        <TextInput
-                            style={estilos.input}
-                            placeholder="Ingrese su correo electrónico"
-                            onChangeText={(text) => {
-                                setEmail(text);
-                                setEmailError('');
-                            }}
-                            onBlur={validateEmail}
-                            value={email}
-                        />
-                        {emailError !== '' && <Text style={estilos.errorMessage}>{emailError}</Text>}
-                    </View>
+                   
+                    <InputForm
+                        label="Correo electrónico"
+                        onInputChange={setEmail}
+                    />
+                    {/* Input para la contraseña */}
                     <View style={estilos.inputContainer}>
                         <Text style={estilos.label}>Contraseña</Text>
                         <TextInput
+                            
                             style={estilos.input}
-                            placeholder="Ingrese su contraseña"
-                            onChangeText={(text) => {
-                                setPassword(text);
-                                setPasswordError('');
-                            }}
-                            onBlur={validatePassword}
+                            secureTextEntry={!showPassword} // Mostrar u ocultar la contraseña según el estado de showPassword
+                            onChangeText={setPassword}
                             value={password}
-                            secureTextEntry={true}
                         />
-                        {passwordError !== '' && <Text style={estilos.errorMessage}>{passwordError}</Text>}
+                        {/* Checkbox para mostrar/ocultar la contraseña */}
+                        <TouchableOpacity
+                            style={estilos.checkbox}
+                            onPress={() => setShowPassword(!showPassword)}
+                        >
+                            
+                            {/* Ícono para mostrar si la contraseña está visible o no */}
+                            <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color={showPassword ? '#FF6600' : '#043464'} />
+                        </TouchableOpacity>
                     </View>
+                    
                     <TouchableOpacity>
                         <Text style={estilos.textForget}>¿Olvidaste tu contraseña?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={estilos.btnLogin} onPress={handleLogin} disabled={!formValid}>
-                        <Text style={[estilos.loginButton, !formValid && { opacity: 0.5 }]}>
+                        <Text style={[estilos.loginButton, !formValid && { opacity: 0.75 }]}>
                             Iniciar Sesión
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { /* Aquí puedes manejar la navegación a la página de registro */ }}>
+                    <TouchableOpacity onPress={() => { nav.navigate('Registro') }}>
                         <Text style={estilos.createAccountText}>
-                            No tienes una cuenta? <Text style={{ fontWeight: 'bold' }}>Crear cuenta</Text>
+                            No tienes una cuenta? <Text style={{ fontWeight: 'bold', color: "#043464" }}>Crear cuenta</Text>
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -98,6 +108,4 @@ const Login = () => {
     );
 };
 
-
-
-export default Login
+export default Login;

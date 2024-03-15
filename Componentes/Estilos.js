@@ -4,7 +4,8 @@ const {width, height}= Dimensions.get('window')
 export const estilos = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ECF0F1',
+        
 
     },
     container2: {
@@ -164,14 +165,14 @@ export const estilos = StyleSheet.create({
         width:width/2-24,
         marginLeft:16,
         marginBottom:16,
-        backgroundColor: '#fff',
+        backgroundColor: '#ECF0F1',
         
     },
     imageContainer:{
         height:140,
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#f0c31f',
+        backgroundColor:'#043464', //COLOR DE FONDO DE
         borderRadius:14,
     },
     imagen:{
@@ -199,7 +200,7 @@ export const estilos = StyleSheet.create({
     },
     bottomContainer:{
         padding:16,
-        backgroundColor:'#fff',
+        backgroundColor:'#ECF0F1',
         borderTopRightRadius:30,
         borderTopLeftRadius:30,
         paddingTop:100,
@@ -276,10 +277,11 @@ export const estilos = StyleSheet.create({
     },
     bottomContainerLogin:{
         padding:16,
-        backgroundColor:'#fff',
+        backgroundColor:'#ECF0F1',
         borderTopRightRadius:30,
         borderTopLeftRadius:30,
         paddingTop:30,
+        paddingBottom:180,
         display:'flex',
         alignContent:'center',
         alignItems:'center',
@@ -300,7 +302,8 @@ export const estilos = StyleSheet.create({
         fontSize:17,
         fontWeight:'bold',
         textAlign:'center',
-        color:'#f0c31f',
+        color:'#FF6600',
+        paddingTop:20,
     },
     inputContainer:{
         paddingTop:10,
@@ -330,13 +333,13 @@ export const estilos = StyleSheet.create({
         width:250,
         fontWeight:'bold',
         borderRadius: 10,
-        borderColor: '#f0c31f',
+        borderColor: '#FF6600',
         borderWidth: 1,
         height:50,
         padding:12,
         paddingBottom:15,
         textAlign:'center',
-        backgroundColor: '#f0c31f',
+        backgroundColor: '#FF6600',
         color:'#fff',
         marginTop:15,
     },
@@ -344,6 +347,34 @@ export const estilos = StyleSheet.create({
         marginTop:25,
         fontSize:18,
     },    
+    bottomContainer:{
+        padding:4,
+        borderTopRightRadius:30,
+        borderTopLeftRadius:30,
+        display:'flex',
+        alignContent:'center',
+        alignItems:'center',
+    },
+
+
+    buttonUni: {
+        paddingVertical: 12,
+        paddingHorizontal: 35,
+        borderWidth: 1.2,
+        borderRadius: 18,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
+    },
+    buttonTextUni: {
+        fontWeight: 'bold',
+    },
+    checkbox:{
+        marginTop:5,
+        marginLeft:10,
+
+    },
+
 });
 
 export const colores={

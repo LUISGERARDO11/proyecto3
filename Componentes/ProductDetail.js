@@ -1,13 +1,15 @@
-import { View, Text, Image, Alert, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { estilos } from './Estilos'
 
-const ProductDetail = () => {
+const ProductDetail = ({route}) => {
     const [prod,setProd]=useState(null)
     const [load,setLoad]=useState(false)
 
+    const {id}=route.params
+
     useEffect(()=>{
-        fetch('https://fakestoreapi.com/products/2')
+       fetch('https://fakestoreapi.com/products/'+id)
         .then((res)=>res.json())
         .then((obj)=>{
             setProd(obj)
@@ -35,7 +37,7 @@ const ProductDetail = () => {
         const [quantity, setQuantity] = useState(1);
 
         const decreaseQuantity = () => {
-            if (quantity > 0) {
+            if (quantity > 1) {
                 setQuantity(prev => prev - 1);
             }
         };
@@ -62,7 +64,7 @@ const ProductDetail = () => {
     const screenL=()=>{
         return(
             
-        <View>
+        <View style={{backgroundColor:'#043464',}}>
             <View style={estilos.topContainer}>
                 <View>
                     <Text style={estilos.bigText}>{prod.title} </Text>
@@ -90,7 +92,7 @@ const ProductDetail = () => {
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
                     <Quantity />
-                    <TouchableOpacity style={[estilos.btn, {backgroundColor:'#f0c31f'}]}>
+                    <TouchableOpacity style={[estilos.btn, {backgroundColor:'#FF6600'}]}>
                         <Text style={estilos.btnText}>Comprar Ahora</Text>
                     </TouchableOpacity>
                 </View>
@@ -99,14 +101,18 @@ const ProductDetail = () => {
         )
     }
    
-    const screenU=()=>{
-        return(
-            <Text>Cargando datos...</Text>
-        )
-    }
+    const UScreen = () => {
+        return (
+            <View>
+                <ActivityIndicator color={'darkblue'} size={'large'} />
+                <Text>Cargando datos...</Text>
+            </View>
+        );
+    };
+
   return (
-    <View style={{backgroundColor:'#f0c31f',}}>
-        {load?screenL():screenU()}
+    <View style={{flex:1}}>
+        {load?screenL():UScreen()}
     </View>
   )
 }
