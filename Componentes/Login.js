@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { estilos } from './Estilos';
 import { useNavigation } from '@react-navigation/native';
 import InputForm from './InputForm'; 
 import Icon from 'react-native-vector-icons/FontAwesome'; // Importa el ícono de FontAwesome
-
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Importa AsyncStorage para almacenar los datos de sesión
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -20,6 +20,7 @@ const Login = () => {
             setFormValid(false);
         }
     }, [email, password]);
+
 
     const handleLogin = async () => {
         // Validación para verificar si el campo de contraseña está vacío
@@ -41,7 +42,10 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                // Inicio de sesión exitoso, puedes hacer lo que sea necesario, por ejemplo, navegar a la pantalla de inicio
+                // Inicio de sesión exitoso, guarda los datos de sesión en AsyncStorage
+                // Inicio de sesión exitoso, guarda los datos de sesión en AsyncStorage
+                await AsyncStorage.setItem('userData', JSON.stringify(data.usuario));
+                 // Navega a la pantalla de inicio
                 nav.navigate('Home');
             } else {
                 // Inicio de sesión fallido, muestra un mensaje de error
@@ -54,7 +58,6 @@ const Login = () => {
             console.error('Error al iniciar sesión:', error);
         }
     };
-
 
     return (
         <View style={{ backgroundColor: '#043464' }}>
@@ -72,7 +75,6 @@ const Login = () => {
                     <View style={estilos.inputContainer}>
                         <Text style={estilos.label}>Contraseña</Text>
                         <TextInput
-                            
                             style={estilos.input}
                             secureTextEntry={!showPassword} // Mostrar u ocultar la contraseña según el estado de showPassword
                             onChangeText={setPassword}
@@ -83,7 +85,6 @@ const Login = () => {
                             style={estilos.checkbox}
                             onPress={() => setShowPassword(!showPassword)}
                         >
-                            
                             {/* Ícono para mostrar si la contraseña está visible o no */}
                             <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color={showPassword ? '#FF6600' : '#043464'} />
                         </TouchableOpacity>
