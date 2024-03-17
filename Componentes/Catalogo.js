@@ -10,7 +10,7 @@ const Catalogo = () => {
     const [load, setLoad] = useState(false);
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
+        fetch('https://apismartsweepers.vercel.app/api/producto')
             .then(res => res.json())
             .then(obj => {
                 setData(obj);
@@ -34,12 +34,12 @@ const Catalogo = () => {
                 <FlatList
                     data={data}
                     numColumns={2}
-                    keyExtractor={item => item.id.toString()} 
+                    keyExtractor={item => item._id.toString()} 
                     renderItem={({ item }) => <Card
-                        title={item.title}
-                        price={item.price}
-                        image={item.image}
-                        id={item.id}
+                        title={item.nombre_producto}
+                        price={item.precio_venta}
+                        image={item.imagen}
+                        id={item._id}
                         />}
                     contentContainerStyle={{ paddingBottom: 110 }}
                 />

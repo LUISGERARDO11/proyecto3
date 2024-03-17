@@ -9,12 +9,8 @@ const Footer = () => {
   return (
     <View style={styles.container}>
      <View>
-        
-        <Text>redes sociales</Text>
-     </View>
-     <View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <FontAwesome name="home" size={30} color="#FFF" style={{ marginRight: 10 }} />
+            <FontAwesome name="map-marker" size={30} color="#FFF" style={{ marginRight: 10 }} />
             <Text style={styles.textFootUbicacion}>México</Text>
         </View>
         <Text style={styles.textFoot}>@2024 Smart Homes Sweepers, Inc. Todos los derechos reservados</Text>
@@ -30,7 +26,7 @@ const styles = StyleSheet.create({
 container:{
     flex:1,
     backgroundColor:"#043464",
-    marginTop:330,
+    marginTop:30,
     },
   imageContainer: {
     overflow: 'hidden',

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { BotonUni, SelectOption } from './Atomicos';
 import InputForm from './InputForm';
 import { estilos } from './Estilos';
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { useNavigation } from '@react-navigation/native';
 
 const TercerPasoForm = ({ route }) => {
@@ -65,11 +66,11 @@ const TercerPasoForm = ({ route }) => {
         body: JSON.stringify({
           nombre_completo: nombre,
           correo: correo,
-          tipo: 'cliente', // Define el tipo de usuario según tus necesidades
+          tipo: 'cliente',
           contrasenia: contra,
           pregunta_secreta: selectedOption,
           respuesta_secreta: res,
-          token_acceso: generateRandomToken(), // Define el token de acceso según tus necesidades
+          token_acceso: generateRandomToken(),
           fecha_registro: new Date(),
           direccion: {
             pais: pais,
@@ -81,30 +82,33 @@ const TercerPasoForm = ({ route }) => {
             referencia: referencia
           },
           telefono: numero,
-          dispositivos: [] // Puedes definir dispositivos aquí si es necesario
+          dispositivos: []
         }),
       });
-
+    
       const data = await response.json();
-
-       // Comprobar la respuesta de la API
-       if (response.ok) {
-        // Aquí puedes manejar la respuesta exitosa de la API
-        alert('Usuario registrado exitosamente');
-        navigation.navigate('Home'); // Redirigir a la pantalla Home después del registro exitoso
+    
+      if (response.ok) {
+        // Verifica si data tiene un valor antes de guardarlo
+        if (data) {
+          await AsyncStorage.setItem('userData', JSON.stringify(data));
+          console.log('Datos guardados en AsyncStorage:', data);
+          alert('Usuario registrado exitosamente');
+          navigation.navigate('Home');
+        } else {
+          alert('Error al registrar el usuario: datos de sesión no encontrados en la respuesta');
+          navigation.navigate('Registro');
+        }
       } else {
-        // Aquí puedes manejar el caso de error de la API
         alert('Error al registrar el usuario');
-        navigation.navigate('Registro'); // Redirigir a la pantalla PasoUnoForm en caso de error
+        navigation.navigate('Registro');
       }
     } catch (error) {
       console.error('Error:', error);
       alert('Error al registrar el usuario');
     } finally {
-      setLoading(false); // Desactivar el estado de carga independientemente del resultado de la solicitud
+      setLoading(false);
     }
-
-
   };
 
   return (

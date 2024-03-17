@@ -16,9 +16,13 @@ import TercerPasoForm from "./TercerPasoForm";
 import Contacto from "./Contacto";
 import LogoutButton from './LogoutScreen';
 import LogoutScreen from './LogoutScreen';
+import QuienesSomos from './QuienesSomos';
+import ParentComponent from './UserProfile';
+import ProductList from './ProductListFirs';
 
 const Index = createNativeStackNavigator();
 const Stackp = createNativeStackNavigator();
+const StackH = createNativeStackNavigator();
 const TabsHome = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -69,20 +73,21 @@ export const TabsH = () => {
         <TabsHome.Navigator
             screenOptions={{
                 tabBarActiveTintColor: '#FF6600',
-                tabBarInactiveTintColor: '#043464',
+                tabBarInactiveTintColor: '#ECF0F1',
                 tabBarLabelStyle: {
                     fontSize: 12,
                     marginBottom: 5,
                 },
                 tabBarStyle: {
-                    backgroundColor: '#ECF0F1',
+                    backgroundColor: '#043464',
                     borderTopWidth: 1,
-                    borderTopColor: '#ECF0F1',
+                    borderTopColor: '#043464',
+                    height: 70, // Ajusta la altura según sea necesario
                 },
             }}>
             <TabsHome.Screen
                 name="Home2"
-                component={Home}
+                component={AppStack}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome name="home" size={size} color={color} />
@@ -94,7 +99,7 @@ export const TabsH = () => {
                 component={StackProduc}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <FontAwesome name="heart" size={size} color={color} />
+                        <FontAwesome name="shopping-bag" size={size} color={color} />
                     ), headerShown: false
                 }}
             />
@@ -129,13 +134,103 @@ export const StackProduc = () => {
     );
 };
 
+
 export const MiDrawer = () => {
     return (
-        <Drawer.Navigator>
-            <Drawer.Screen name="SMART HOMES SWEEPERS" component={TabsH} />
-            <Drawer.Screen name="Preguntas Frecuentes" component={PreguntasFrecuentes} />
-            <Drawer.Screen name="Contacto" component={Contacto} />
-            <Drawer.Screen name="Cerrar Sesión" component={LogoutScreen} />
+        <Drawer.Navigator
+            screenOptions={{
+                drawerActiveTintColor: '#043464',
+                drawerActiveBackgroundColor: '#ECF0F1',
+                drawerInactiveTintColor: '#ECF0F1',
+                drawerInactiveBackgroundColor: '#043464',
+                drawerStyle: {
+                    backgroundColor: '#043464',
+                },
+                headerStyle: {
+                    backgroundColor: '#043464',
+                },
+                headerTintColor: '#ECF0F1',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }}
+            drawerContentContainerStyle={{
+                flex: 1,
+                justifyContent: 'space-between',
+                paddingBottom: 50, // Espacio adicional al final del drawer
+            }}
+        >
+            <Drawer.Screen
+                name="SMART HOMES SWEEPERS"
+                component={TabsH}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="shopping-bag" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Perfil"
+                component={ParentComponent}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="user" size={size} color={color} /> // Icono del componente seleccionado
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Preguntas Frecuentes"
+                component={PreguntasFrecuentes}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="question-circle" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Quienes somos"
+                component={QuienesSomos}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="info-circle" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Contacto"
+                component={Contacto}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="envelope" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Cerrar Sesión"
+                component={LogoutScreen}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <FontAwesome name="sign-out" size={size} color="#FF6600" />
+                    ),
+                }}
+            />
         </Drawer.Navigator>
-    )
-}
+    );
+};
+export const AppStack = () => {
+    return (
+      <StackH.Navigator screenOptions={{
+        headerStyle: {
+            backgroundColor: '#ECF0F1',
+        },
+        headerTintColor: '#ECF0F1',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }}>
+        
+        <StackH.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <StackH.Screen name="ProductDetail" component={ProductDetail} options={{ headerShown: false }}/>
+      </StackH.Navigator>
+    );
+  };
