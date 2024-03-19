@@ -71,26 +71,23 @@ const Login = () => {
                         label="Correo electrónico"
                         onInputChange={setEmail}
                     />
-                    {/* Input para la contraseña */}
-                    <View style={estilos.inputContainer}>
-                        <Text style={estilos.label}>Contraseña</Text>
-                        <TextInput
-                            style={estilos.input}
-                            secureTextEntry={!showPassword} // Mostrar u ocultar la contraseña según el estado de showPassword
-                            onChangeText={setPassword}
-                            value={password}
-                        />
-                        {/* Checkbox para mostrar/ocultar la contraseña */}
+                  
+                    <InputForm 
+                            label="Contraseña" 
+                            onInputChange={setPassword} 
+                            secureTextEntryValue={!showPassword} // Mostrar u ocultar la contraseña según el estado de showPassword
+                            />
+                    <View style={estilos.inputContainer2}>
                         <TouchableOpacity
                             style={estilos.checkbox}
                             onPress={() => setShowPassword(!showPassword)}
-                        >
+                            >
                             {/* Ícono para mostrar si la contraseña está visible o no */}
                             <Icon name={showPassword ? 'eye' : 'eye-slash'} size={20} color={showPassword ? '#FF6600' : '#043464'} />
                         </TouchableOpacity>
                     </View>
                     
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => nav.navigate('ForgotPasswordScreen')}>
                         <Text style={estilos.textForget}>¿Olvidaste tu contraseña?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={estilos.btnLogin} onPress={handleLogin} disabled={!formValid}>

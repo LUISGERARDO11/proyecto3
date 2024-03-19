@@ -19,6 +19,9 @@ import LogoutScreen from './LogoutScreen';
 import QuienesSomos from './QuienesSomos';
 import ParentComponent from './UserProfile';
 import ProductList from './ProductListFirs';
+import ForgotPasswordScreen from './Recuperacion/ForgotPasswordScreen';
+import VerifyUserQuestion from './Recuperacion/VerifyUserQuestion';
+import PasswordUpdateForm from './Recuperacion/PasswordUpdateForm';
 
 const Index = createNativeStackNavigator();
 const Stackp = createNativeStackNavigator();
@@ -56,6 +59,10 @@ export const StackHome = () => {
                 <>
                     <Index.Screen name="Home" component={MiDrawer} options={{ headerShown: false }} />
                     <Index.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                    <Index.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ headerShown: false }} />
+                    <Index.Screen name="PasswordUpdateForm" component={PasswordUpdateForm} options={{ headerShown: false }} />
+                    <Index.Screen name="VerifyUserQuestion" component={VerifyUserQuestion} options={{ headerShown: false }} />
+                    
                     <Index.Screen name="Registro" component={Registro} options={{ headerShown: false }} />
                     <Index.Screen name="SegundoPasoForm" component={SegundoPasoForm} options={{ headerShown: false }} />
                     <Index.Screen name="TercerPasoForm" component={TercerPasoForm} options={{ headerShown: false }} />

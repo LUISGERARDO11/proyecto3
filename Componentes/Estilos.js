@@ -303,11 +303,16 @@ export const estilos = StyleSheet.create({
         fontWeight:'bold',
         textAlign:'center',
         color:'#FF6600',
-        paddingTop:20,
+        paddingTop:10,
     },
     inputContainer:{
         paddingTop:10,
         height:90,
+        width:300,
+        paddingLeft:10,
+    },
+    inputContainer2:{
+        paddingTop:8,
         width:300,
         paddingLeft:10,
     },

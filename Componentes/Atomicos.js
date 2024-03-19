@@ -80,49 +80,49 @@ export const BotonMenu=({texto,accion,color1='#bb5',color2='#ac9'})=>{
 };
 
 
-export const SelectOption = ({ options, onSelect,label }) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
-  
-    const handleOptionSelect = (option) => {
+export const SelectOption = ({ options, onSelect, label, defaultOption }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(defaultOption || null);
+
+  const handleOptionSelect = (option) => {
       setSelectedOption(option);
       onSelect(option);
       setModalVisible(false);
-    };
-  
-    return (
-      <View style={styles.container}>
-        <Text style={{fontSize:19,fontWeight:'bold'}}>{label}</Text>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style={styles.selectButton}>
-            <Text style={styles.selectButtonText}>{selectedOption ? selectedOption : 'Seleccionar'}</Text>
-            <FontAwesome name="chevron-down" size={20} color="black" />
-          </View>
-        </TouchableOpacity>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              {options.map((option, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.option}
-                  onPress={() => handleOptionSelect(option)}
-                >
-                  <Text>{option}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        </Modal>
-      </View>
-    );
   };
-  
+
+  return (
+      <View style={styles.container}>
+          <Text style={{ fontSize: 19, fontWeight: 'bold' }}>{label}</Text>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <View style={styles.selectButton}>
+                  <Text style={styles.selectButtonText}>{selectedOption ? selectedOption : 'Seleccionar'}</Text>
+                  <FontAwesome name="chevron-down" size={20} color="black" />
+              </View>
+          </TouchableOpacity>
+          <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => setModalVisible(false)}
+          >
+              <View style={styles.modalContainer}>
+                  <View style={styles.modalContent}>
+                      {options.map((option, index) => (
+                          <TouchableOpacity
+                              key={index}
+                              style={styles.option}
+                              onPress={() => handleOptionSelect(option)}
+                          >
+                              <Text>{option}</Text>
+                          </TouchableOpacity>
+                      ))}
+                  </View>
+              </View>
+          </Modal>
+      </View>
+  );
+};
+
   
   const styles = StyleSheet.create({
     container: {
