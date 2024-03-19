@@ -14,7 +14,20 @@ const PasswordUpdateForm = ({ route }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para mostrar u ocultar la confirmación de la contraseña
   const [loading, setLoading] = useState(false); // Estado para mostrar el estado de carga
   const navigation = useNavigation();
-  const { correo } = route.params;
+  const { correo, id } = route.params;
+
+  const generateRandomToken = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const tokenLength = 6;
+  let token = '';
+
+  for (let i = 0; i < tokenLength; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    token += characters.charAt(randomIndex);
+  }
+
+  return token;
+  };
   
   const handleNext = async () => {
     // Verificar si las contraseñas coinciden
@@ -31,8 +44,37 @@ const PasswordUpdateForm = ({ route }) => {
         alert('La contraseña debe contener al menos una mayúscula, una minúscula, un carácter especial y un número, y tener al menos 8 caracteres en total.');
         return;
     }
+
     // Realizar la lógica para actualizar la contraseña
-};
+    try {
+        // Enviar la solicitud al servidor para actualizar la contraseña
+        const response = await fetch(`https://apismartsweepers.vercel.app/api/usuarios/actualizarcontrasena/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nuevaContrasena: contra,
+                token_acceso: generateRandomToken(),
+            }),
+        });
+
+        // Verificar si la solicitud fue exitosa
+        if (response.ok) {
+            // Contraseña actualizada correctamente
+            alert('Contraseña actualizada correctamente');
+            navigation.navigate('Login'); // Redirigir a la pantalla de inicio de sesión
+        } else {
+            // Error al actualizar la contraseña
+            alert('Error al actualizar la contraseña');
+        }
+    } catch (error) {
+        // Error de red u otro error
+        console.error('Error al actualizar la contraseña:', error);
+        alert('Error al actualizar la contraseña. Por favor, inténtalo de nuevo más tarde.');
+    }
+  };
+
 
 
   const handleCancel = () => {

@@ -22,6 +22,7 @@ import ProductList from './ProductListFirs';
 import ForgotPasswordScreen from './Recuperacion/ForgotPasswordScreen';
 import VerifyUserQuestion from './Recuperacion/VerifyUserQuestion';
 import PasswordUpdateForm from './Recuperacion/PasswordUpdateForm';
+import VerifyToken from './Recuperacion/VerifyToken';
 
 const Index = createNativeStackNavigator();
 const Stackp = createNativeStackNavigator();
@@ -54,25 +55,43 @@ export const StackHome = () => {
     }, []);
 
     return (
+        <>
+            {userAuthenticated ? <IndexLogIn /> : <IndexLogOut />}
+        </>
+    );
+};
+
+
+//Retorna un usuario  logeado
+export const IndexLogIn=()=>{
+    return(
         <Index.Navigator >
-            {userAuthenticated ? (
-                <>
-                    <Index.Screen name="Home" component={MiDrawer} options={{ headerShown: false }} />
-                    <Index.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                    <Index.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ headerShown: false }} />
-                    <Index.Screen name="PasswordUpdateForm" component={PasswordUpdateForm} options={{ headerShown: false }} />
-                    <Index.Screen name="VerifyUserQuestion" component={VerifyUserQuestion} options={{ headerShown: false }} />
-                    
-                    <Index.Screen name="Registro" component={Registro} options={{ headerShown: false }} />
-                    <Index.Screen name="SegundoPasoForm" component={SegundoPasoForm} options={{ headerShown: false }} />
-                    <Index.Screen name="TercerPasoForm" component={TercerPasoForm} options={{ headerShown: false }} />
-                </>
-            ) : (
-                <Index.Screen name="Login" component={Login} options={{ headerShown: false }} />
-            )}
+            <Index.Screen name="Home" component={MiDrawer} options={{ headerShown: false }} />
+            <Index.Screen name="Login" component={Login} options={{ headerShown: false }} />
         </Index.Navigator>
     )
 }
+//Retorna un usuario sin logear
+export const IndexLogOut=()=>{
+    return(
+        <Index.Navigator >
+             <Index.Screen name="Login" component={Login} options={{ headerShown: false }} />
+             <Index.Screen name="Home" component={MiDrawer} options={{ headerShown: false }} />
+             <Index.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ headerShown: false }} />
+             <Index.Screen name="VerifyToken" component={VerifyToken} options={{ headerShown: false }} />
+            <Index.Screen name="PasswordUpdateForm" component={PasswordUpdateForm} options={{ headerShown: false }} />
+            <Index.Screen name="VerifyUserQuestion" component={VerifyUserQuestion} options={{ headerShown: false }} />
+            <Index.Screen name="Registro" component={Registro} options={{ headerShown: false }} />
+            <Index.Screen name="SegundoPasoForm" component={SegundoPasoForm} options={{ headerShown: false }} />
+            <Index.Screen name="TercerPasoForm" component={TercerPasoForm} options={{ headerShown: false }} />
+        </Index.Navigator>
+    )
+}
+
+
+
+
+
 
 // Navegacion secundaria (tabs del home)
 export const TabsH = () => {

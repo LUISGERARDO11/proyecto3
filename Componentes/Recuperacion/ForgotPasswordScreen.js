@@ -6,8 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 
 const ForgotPasswordScreen = () => {
     const [correo, setCorreo] = useState('');
+    const [token, setToken] = useState('');
+    const [id, setId] = useState('');
     const [emailExists, setEmailExists] = useState(false);
-    const [loading, setLoading] = useState(false); // Nueva variable de estado
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
     const handleCheckEmail = async () => {
@@ -16,7 +18,7 @@ const ForgotPasswordScreen = () => {
             return;
         }
 
-        setLoading(true); // Establece loading a true mientras se verifica el correo electrónico
+        setLoading(true);
 
         try {
             const response = await fetch('https://apismartsweepers.vercel.app/api/usuarios/email/' + correo);
@@ -24,6 +26,8 @@ const ForgotPasswordScreen = () => {
 
             if (data.exists) {
                 setEmailExists(true);
+                setToken(data.token);
+                setId(data._id);
             } else {
                 Alert.alert('Correo electrónico no encontrado', 'No existe una cuenta asociada a este correo electrónico.');
             }
@@ -31,37 +35,42 @@ const ForgotPasswordScreen = () => {
             console.error('Error al verificar el correo electrónico:', error);
             Alert.alert('Error', 'No se pudo verificar el correo electrónico. Por favor, intenta de nuevo más tarde.');
         } finally {
-            setLoading(false); // Establece loading a false una vez finaliza la verificación
+            setLoading(false);
         }
     };
 
     const handleResetByEmail = async () => {
-        if (correo.trim() === '') {
-            Alert.alert('Error', 'Por favor, completa el campo de correo.');
+        if (!emailExists) {
+            Alert.alert('Error', 'Por favor, primero verifica tu correo electrónico.');
             return;
         }
 
         try {
+            setLoading(true);
+
             const response = await fetch('https://apismartsweepers.vercel.app/enviarcorreo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    destinatario: correo,
-                    asunto: 'Recuperación de contraseña',
-                    cuerpo: 'Aquí está tu enlace de recuperación de contraseña: [Enlace]'
-                })
+                body: JSON.stringify({ destinatario: correo, token: token })
             });
 
+            const responseData = await response.json();
+
             if (response.ok) {
-                Alert.alert('Correo electrónico enviado', 'Se ha enviado un correo electrónico con instrucciones para restablecer tu contraseña.');
+                Alert.alert('Correo enviado', responseData.message);
+                navigation.navigate('VerifyToken', {
+                    id: id
+                });
             } else {
-                Alert.alert('Error', 'Hubo un problema al enviar el correo electrónico. Por favor, inténtalo de nuevo más tarde.');
+                Alert.alert('Error al enviar correo', responseData.error);
             }
         } catch (error) {
-            console.error('Error al enviar solicitud POST:', error);
-            Alert.alert('Error', 'Hubo un problema al enviar el correo electrónico. Por favor, inténtalo de nuevo más tarde.');
+            console.error('Error al enviar el correo:', error);
+            Alert.alert('Error', 'No se pudo enviar el correo electrónico. Por favor, intenta de nuevo más tarde.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -71,7 +80,7 @@ const ForgotPasswordScreen = () => {
 
     return (
         <View style={styles.container}>
-            {loading && <ActivityIndicator style={styles.activityIndicator} size="large" color="#043464" />} 
+            {loading && <ActivityIndicator style={styles.activityIndicator} size="large" color="#043464" />}
             <Text style={styles.textIndicaciones}>Para reestablecer tu contraseña, valida tu correo electrónico</Text>
             <InputForm
                 label="Correo electrónico"
@@ -79,7 +88,7 @@ const ForgotPasswordScreen = () => {
                 style={styles.input}
             />
             <View style={styles.buttonContainer}>
-                <BotonUni text="      Verificar correo electrónico      " onPress={handleCheckEmail} style={styles.btnVerificar} customTextColor="#ECF0F1" customBackgroundColor="#043464" customBorderColor="#ECF0F1"  />
+                <BotonUni text="      Verificar correo electrónico      " onPress={handleCheckEmail} style={styles.btnVerificar} customTextColor="#ECF0F1" customBackgroundColor="#043464" customBorderColor="#ECF0F1" />
             </View>
             {emailExists && (
                 <View style={styles.buttonContainer}>
@@ -97,7 +106,7 @@ const ForgotPasswordScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        position: 'relative', // Establece la posición relativa para poder posicionar el ActivityIndicator absolutamente
+        position: 'relative',
         marginTop: 20,
         padding: 16,
         backgroundColor: '#ECF0F1',
@@ -109,24 +118,24 @@ const styles = StyleSheet.create({
         top: '50%',
         left: 0,
         right: 0,
-        zIndex: 9999, // Asegura que el ActivityIndicator esté por encima de todos los demás elementos
+        zIndex: 9999,
     },
     buttonContainer: {
         marginTop: 20,
     },
-    textIndicaciones:{
-        fontSize:20,
-        textAlign:'center',
-        fontWeight:'bold',
-        paddingTop:20,
-        paddingBottom:20,
+    textIndicaciones: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        paddingTop: 20,
+        paddingBottom: 20,
     },
-    btnVerificar:{
-        paddingLeft:10,
-        paddingRight:10,
+    btnVerificar: {
+        paddingLeft: 10,
+        paddingRight: 10,
     },
-    input:{
-        paddingTop: 40 
+    input: {
+        paddingTop: 40
     },
     regresar: {
         fontSize: 16,

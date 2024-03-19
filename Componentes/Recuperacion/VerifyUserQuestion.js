@@ -5,13 +5,12 @@ import { BotonUni, SelectOption } from '../Atomicos';
 import { useNavigation } from '@react-navigation/native';
 
 const VerifyUserQuestion = ({ route }) => {
-
     const navigation = useNavigation();
     const { correo } = route.params;
     const [userData, setUserData] = useState(null);
     const [load, setLoad] = useState(false);
     const [res, setRes] = useState('');
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState('');
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -19,10 +18,9 @@ const VerifyUserQuestion = ({ route }) => {
                 const res = await fetch(`https://apismartsweepers.vercel.app/api/usuarios/email/${correo}`);
                 const obj = await res.json();
                 if (obj.exists) {
-                    setUserData(obj.data);
+                    setUserData(obj);
+                    setSelectedOption(obj.pregunta_secreta);
                     setLoad(true);
-                    setSelectedOption(obj.data.pregunta_secreta)
-                    console.log('Usuario cargado');
                 } else {
                     Alert.alert('Usuario no encontrado', 'No se encontró ningún usuario con este correo electrónico.');
                 }
@@ -58,6 +56,7 @@ const VerifyUserQuestion = ({ route }) => {
             if (result.exists) {
                 navigation.navigate('PasswordUpdateForm', {
                     correo: correo,
+                    id: userData._id
                 });
             } else {
                 Alert.alert('Identidad no verificada', 'No se ha podido verificar la identidad del usuario.');
@@ -80,12 +79,7 @@ const VerifyUserQuestion = ({ route }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.textIndicaciones}>Valida tu identidad</Text>
-            <SelectOption
-                label="Pregunta de recuperación"
-                options={userData ? [userData.pregunta_secreta] : []}
-                defaultOption={userData ? userData.pregunta_secreta : ''}
-                onSelect={(option) => setSelectedOption(option)}
-            />
+            <Text style={styles.textPregunta}>{userData.pregunta_secreta}</Text>
 
             <InputForm label="Respuesta" onInputChange={setRes} />
             <View style={styles.buttonContainer}>
@@ -115,6 +109,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         paddingTop: 20,
+        paddingBottom: 20,
+    },
+    textPregunta: {
+        fontSize: 18,
+        textAlign: 'center',
         paddingBottom: 20,
     },
     btnVerificar: {

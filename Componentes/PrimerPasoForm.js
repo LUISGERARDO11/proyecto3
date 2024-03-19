@@ -13,28 +13,44 @@ const PrimerPasoForm = ({ navigation }) => {
         navigation.navigate('Login');
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (nombre.trim() === '' || correo.trim() === '' || numero.trim() === '') {
             alert('Por favor, complete todos los campos.');
             return;
         }
-
+    
         if (!correo.includes('@')) {
             alert('Ingrese un correo electrónico válido.');
             return;
         }
-
+    
         if (!/^[\d]{10}$/.test(numero)) {
             alert('Ingrese un número de teléfono válido (10 dígitos exactos).');
             return;
         }
-
-        navigation.navigate('SegundoPasoForm', {
-            nombre: nombre,
-            correo: correo,
-            numero: numero
-        });
+    
+        try {
+            // Realizar la solicitud al servidor para verificar si existe un usuario con el correo proporcionado
+            const response = await fetch(`https://apismartsweepers.vercel.app/api/usuarios/email/${correo}`);
+            const data = await response.json();
+    
+            if (data.exists) {
+                // Si existe un usuario con el correo proporcionado, mostrar una alerta y no permitir continuar
+                alert('Ya existe un usuario con ese correo electrónico. Por favor, utilice otro correo electrónico.');
+            } else {
+                // Si no existe un usuario con el correo proporcionado, continuar al siguiente paso del formulario
+                navigation.navigate('SegundoPasoForm', {
+                    nombre: nombre,
+                    correo: correo,
+                    numero: numero
+                });
+            }
+        } catch (error) {
+            console.error('Error al verificar el correo electrónico:', error);
+            alert('Error al verificar el correo electrónico. Por favor, inténtalo de nuevo más tarde.');
+        }
     };
+    
 
     return (
         <ScrollView style={styles.container}>
