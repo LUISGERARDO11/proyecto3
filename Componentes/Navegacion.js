@@ -23,6 +23,7 @@ import ForgotPasswordScreen from './Recuperacion/ForgotPasswordScreen';
 import VerifyUserQuestion from './Recuperacion/VerifyUserQuestion';
 import PasswordUpdateForm from './Recuperacion/PasswordUpdateForm';
 import VerifyToken from './Recuperacion/VerifyToken';
+import MisDispositivos from './MisDispositivos';
 
 const Index = createNativeStackNavigator();
 const Stackp = createNativeStackNavigator();
@@ -126,6 +127,15 @@ export const TabsH = () => {
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome name="shopping-bag" size={size} color={color} />
+                    ), headerShown: false
+                }}
+            />
+            <TabsHome.Screen
+                name="Mis dispositivos"
+                component={MisDispositivos}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome name="dashboard" size={size} color={color} /> // Icono de engranaje para dispositivos
                     ), headerShown: false
                 }}
             />
